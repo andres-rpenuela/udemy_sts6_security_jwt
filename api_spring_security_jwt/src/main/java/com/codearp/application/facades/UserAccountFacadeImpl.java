@@ -44,6 +44,34 @@ public class UserAccountFacadeImpl implements UserAccountFacade {
     }
 
     @Override
+    @Transactional
+    public UserAccountDto updateUserAccount(String idAccount, UserFormDto userFormDto) {
+        // que puede modificar: datos de la cuenta, datos de la persona y/o roles
+        // no puede modificar: username
+        if (idAccount==null || userFormDto == null ||userFormDto.getUserName() == null || !userFormDto.getUserName().equalsIgnoreCase(idAccount)){
+            throw new IllegalArgumentException("User name not be modified");
+        }
+
+        List<RoleDto> rolesDto = Optional.ofNullable(roleService.findInNames(userFormDto.getRoleNames()))
+                .filter(list -> !list.isEmpty())
+                .orElseThrow(() -> new IllegalArgumentException("The roles is required"));
+
+        UserAccountDtoBuilder userAccountDtoBuilder = new UserAccountDtoBuilder(userFormDto);
+        UserAccountDto userAccountDto = userAccountDtoBuilder.createOrUpdatePerson()
+                .assignationRoles(rolesDto)
+                .createOrUpdateUserAccount()
+                .getResult();
+
+        if( userAccountDto.getPerson().getId() != null ){
+            PersonDto personDto = personService.updatePerson(userAccountDto.getPerson().getId(), userAccountDto.getPerson());
+            userAccountDto.setPerson( personDto );
+        }
+
+        return userAccountService.updateUserAccount(idAccount, userAccountDto);
+
+    }
+
+    @Override
     public List<PersonDto> getAllPerson() {
         return personService.getAllPerson();
     }

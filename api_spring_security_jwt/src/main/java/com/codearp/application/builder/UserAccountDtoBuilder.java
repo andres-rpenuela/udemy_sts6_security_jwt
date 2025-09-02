@@ -29,6 +29,7 @@ public class UserAccountDtoBuilder {
 
         PersonDto personDto = new PersonDto();
 
+        personDto.setId( userFormDto.getId() );
         personDto.setName(userFormDto.getName());
         personDto.setSurname(userFormDto.getSurname());
         personDto.setEmail(userFormDto.getEmail());

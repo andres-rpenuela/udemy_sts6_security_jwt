@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -41,7 +42,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDto updatePerson(Long id, PersonDto personDto) {
+    public PersonDto updatePerson(UUID id, PersonDto personDto) {
         Person person = Optional.ofNullable( personDto.getId() )
                 .flatMap( personRepository::findById )
                 .orElseThrow(() -> new IllegalStateException("Person with id " + id + " not found"));

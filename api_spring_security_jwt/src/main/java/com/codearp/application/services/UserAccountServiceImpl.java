@@ -24,7 +24,6 @@ public class UserAccountServiceImpl implements UserAccountService{
     @Transactional
     public UserAccountDto createUserAccount(UserAccountDto userAccountDto) {
         validateThatContainsPerson(userAccountDto);
-        validateThatContainsRoles(userAccountDto);
 
         if( this.isExistedById(userAccountDto) ) {
             throw new IllegalArgumentException("Username already exists");
@@ -41,9 +40,9 @@ public class UserAccountServiceImpl implements UserAccountService{
         UserAccount maybeExistingAccount = userAccountRepository.findById( idUserAccount )
                 .orElseThrow( ()-> new IllegalArgumentException("UserAccount with id "+idUserAccount+" does not exist") );
 
-        validateThatContainsPerson(userAccountDto);
-        validateThatContainsRoles(userAccountDto);
-        validatePersonAssociation(maybeExistingAccount, userAccountDto);
+        if(maybeExistingAccount.getPerson() == null){
+            throw new IllegalStateException("The user account does not have a person associated, cannot update");
+        }
 
         UserAccount userAccount = createOrUpdateUserAccount( maybeExistingAccount, userAccountDto );
 
@@ -68,14 +67,21 @@ public class UserAccountServiceImpl implements UserAccountService{
         userAccount.setEnabled( userAccountDto.getEnabled() );
 
         // Asignar persona
-        userAccount.setPerson( mapper.map(userAccountDto.getPerson(), com.codearp.application.domains.Person.class) );
+        if( linkPersonToAccount(userAccount, userAccountDto) ){
+            // his is create of person
+            userAccount.setPerson( mapper.map(userAccountDto.getPerson(), com.codearp.application.domains.Person.class) );
+        }else if( userAccount.getPerson() == null ){
+            throw new IllegalStateException("The user account does not have a person associated, cannot update");
+        }
 
         // Asignar roles
+        validateThatContainsRoles( userAccountDto );
         userAccount.setRoles(
                 userAccountDto.getRoles().stream()
                         .map(roleDto -> mapper.map(roleDto, Role.class))
                         .collect(Collectors.toList())
         );
+
 
         //userAccount = userAccountRepository.save( userAccount );
         //userAccount = userAccountRepository.findById( userAccount.getUserName() ).orElseThrow(()-> new IllegalStateException("UserAccount was not saved correctly"));
@@ -105,13 +111,8 @@ public class UserAccountServiceImpl implements UserAccountService{
     /**
      * Valida que si ya existe un usuario, la persona asociada sea la misma
      */
-    private void validatePersonAssociation(UserAccount maybeExistingAccount, UserAccountDto userAccountDto) {
-
-        if( maybeExistingAccount.getPerson() != null && userAccountDto.getPerson() != null
-                && !maybeExistingAccount.getPerson().getId().equals(userAccountDto.getPerson().getId()) ){
-            throw new IllegalArgumentException("The person of user must be the same");
-        }
-
+    private boolean linkPersonToAccount(UserAccount maybeExistingAccount, UserAccountDto userAccountDto) {
+        return maybeExistingAccount.getPerson() == null && userAccountDto.getPerson()!=null && userAccountDto.getPerson().getId()!=null;
     }
 
 }

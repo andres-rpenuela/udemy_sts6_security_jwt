@@ -10,5 +10,7 @@ public interface UserAccountFacade {
 
     UserAccountDto createUserAccount(UserFormDto userFormDto);
 
+    UserAccountDto updateUserAccount(String idAccount, UserFormDto userFormDto);
+
     List<PersonDto> getAllPerson();
 }

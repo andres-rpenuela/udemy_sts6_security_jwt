@@ -26,4 +26,8 @@ public class UserRestController {
     public ResponseEntity<UserAccountDto> createUser(@RequestBody UserFormDto userFormDto){
         return ResponseEntity.ok( userAccountFacade.createUserAccount( userFormDto ) );
     }
+    @PutMapping("/{idAccount}")
+    public ResponseEntity<UserAccountDto> createUser(@PathVariable String idAccount, @RequestBody UserFormDto userFormDto){
+        return ResponseEntity.ok( userAccountFacade.updateUserAccount(idAccount, userFormDto ) );
+    }
 }
