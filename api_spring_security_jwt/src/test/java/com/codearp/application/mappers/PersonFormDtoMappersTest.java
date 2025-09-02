@@ -1,8 +1,8 @@
 package com.codearp.application.mappers;
 
 import com.codearp.application.configs.MappersConfig;
-import com.codearp.application.domains.Person;
-import com.codearp.application.dtos.PersonDto;
+import com.codearp.application.users.domains.Person;
+import com.codearp.application.users.dtos.PersonDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;

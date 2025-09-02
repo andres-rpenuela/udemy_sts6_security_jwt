@@ -1,11 +1,10 @@
 package com.codearp.application.mappers;
 
 import com.codearp.application.configs.MappersConfig;
-import com.codearp.application.domains.Role;
-import com.codearp.application.domains.Person;
-import com.codearp.application.domains.UserAccount;
-import com.codearp.application.dtos.RoleDto;
-import com.codearp.application.dtos.UserFormDto;
+import com.codearp.application.users.domains.Role;
+import com.codearp.application.users.domains.Person;
+import com.codearp.application.users.domains.UserAccount;
+import com.codearp.application.users.dtos.UserFormDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;

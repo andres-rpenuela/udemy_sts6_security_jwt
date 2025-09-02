@@ -1,8 +1,8 @@
 package com.codearp.application.configs;
 
-import com.codearp.application.domains.Person;
-import com.codearp.application.dtos.PersonDto;
-import com.codearp.application.mappers.UserToUserDtoConverter;
+import com.codearp.application.users.domains.Person;
+import com.codearp.application.users.dtos.PersonDto;
+import com.codearp.application.users.mappers.UserToUserDtoConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
