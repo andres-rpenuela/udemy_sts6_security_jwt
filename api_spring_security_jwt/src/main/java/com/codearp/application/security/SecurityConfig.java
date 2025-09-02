@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -24,7 +25,9 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 // desactivar CSRF solo para H2
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+                //.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+                // desactivar CSRF para simplificar las pruebas (no es recomendable en producción)
+                .csrf(AbstractHttpConfigurer::disable)
                 // permitir frames (para que cargue bien la consola en el navegador)
                 .headers(headers -> headers.frameOptions( HeadersConfigurer.FrameOptionsConfig::sameOrigin ) )
                 // login básico por simplicidad

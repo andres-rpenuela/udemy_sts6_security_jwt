@@ -8,12 +8,12 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter @Setter
-@EqualsAndHashCode(exclude = {"fullName","id","userAccount"}, callSuper = false)
+@EqualsAndHashCode(exclude = {"fullName","id"}, callSuper = false)
 @Builder @ToString
 @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table(name="USERS")
-public class User extends Auditable {
+@Table(name="PERSONS")
+public class Person extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID )
@@ -29,11 +29,6 @@ public class User extends Auditable {
     private String email;
 
     private LocalDate birthDate;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_account_id")
-    @ToString.Exclude
-    private UserAccount userAccount;
 
     @PostLoad
     @PostPersist

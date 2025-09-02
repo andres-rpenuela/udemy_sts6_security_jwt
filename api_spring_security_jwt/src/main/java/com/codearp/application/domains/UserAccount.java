@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"user","roles"},callSuper = false)
+@EqualsAndHashCode(exclude = {"person","roles"},callSuper = false)
 @Builder
 @ToString
 @AllArgsConstructor @NoArgsConstructor
@@ -18,12 +18,14 @@ public class UserAccount extends Auditable {
     @Id
     private String userName;
 
+    @ToString.Exclude
     private String password;
 
     private Boolean enabled;
 
-    @OneToOne(mappedBy = "userAccount",fetch = FetchType.LAZY)
-    private User user;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="person_id", unique = true)
+    private Person person;
 
     @ManyToMany
     @JoinTable(
