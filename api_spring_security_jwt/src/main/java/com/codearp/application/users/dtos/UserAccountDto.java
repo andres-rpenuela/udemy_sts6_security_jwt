@@ -1,5 +1,6 @@
 package com.codearp.application.users.dtos;
 
+import com.codearp.application.commons.dtos.AuditableDto;
 import lombok.*;
 
 import java.util.List;

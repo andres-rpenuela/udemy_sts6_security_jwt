@@ -8,4 +8,6 @@ public interface UserAccountService {
     UserAccountDto updateUserAccount(String idUserAccount, UserAccountDto userAccountDto);
 
     boolean isExistedById(UserAccountDto userAccountDto);
+    boolean isExistedById(String userName);
+
 }

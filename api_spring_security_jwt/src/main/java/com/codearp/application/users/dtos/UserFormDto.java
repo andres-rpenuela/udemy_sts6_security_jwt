@@ -1,5 +1,7 @@
 package com.codearp.application.users.dtos;
 
+import com.codearp.application.commons.dtos.AuditableDto;
+import com.codearp.application.commons.validators.IsExistsDb;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -27,6 +29,7 @@ public class UserFormDto extends AuditableDto {
     private String surname;
 
     @Email
+    @IsExistsDb(fieldName = "email")
     private String email;
 
     @NotNull
@@ -36,6 +39,7 @@ public class UserFormDto extends AuditableDto {
     // user account
     @NotBlank
     @Size(min=4,max = 50)
+    @IsExistsDb(fieldName = "userName")
     private String userName;
 
     @ToString.Exclude

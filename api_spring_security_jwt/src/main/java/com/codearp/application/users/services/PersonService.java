@@ -10,4 +10,6 @@ public interface PersonService {
     List<PersonDto> getAllPerson();
     PersonDto createPerson(PersonDto personDto);
     PersonDto updatePerson(UUID id, PersonDto personDto);
+    boolean existsByEmailIgnoreCase(String email);
+
 }

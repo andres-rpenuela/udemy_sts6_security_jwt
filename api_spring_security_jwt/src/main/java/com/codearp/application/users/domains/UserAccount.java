@@ -1,5 +1,6 @@
 package com.codearp.application.users.domains;
 
+import com.codearp.application.commons.domains.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 

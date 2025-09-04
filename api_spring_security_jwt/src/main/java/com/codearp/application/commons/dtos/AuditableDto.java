@@ -1,4 +1,4 @@
-package com.codearp.application.users.dtos;
+package com.codearp.application.commons.dtos;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;

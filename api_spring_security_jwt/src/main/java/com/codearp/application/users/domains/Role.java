@@ -1,5 +1,6 @@
 package com.codearp.application.users.domains;
 
+import com.codearp.application.commons.domains.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor @NoArgsConstructor
 @Entity
 @Table(name="ROLES")
-public class Role extends Auditable{
+public class Role extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

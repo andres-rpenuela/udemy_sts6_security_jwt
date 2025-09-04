@@ -52,6 +52,14 @@ public class PersonServiceImpl implements PersonService {
         return mapper.map( person, PersonDto.class );
     }
 
+    @Override
+    public boolean existsByEmailIgnoreCase(String email) {
+        if( email==null || email.isBlank() ){
+            return false;
+        }
+        return personRepository.existsByEmailIgnoreCase(email);
+    }
+
     private Person savePerson(Person person, PersonDto personDto) {
 
         person.setName(personDto.getName());

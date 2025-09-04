@@ -1,0 +1,2 @@
+IsRequired.message=This field is required.
+IsExistsDb.message=The specified value does not exist in the database.

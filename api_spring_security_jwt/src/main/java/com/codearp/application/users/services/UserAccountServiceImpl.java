@@ -53,7 +53,15 @@ public class UserAccountServiceImpl implements UserAccountService{
     @Override
     @Transactional(readOnly = true)
     public boolean isExistedById(UserAccountDto userAccountDto) {
-        return userAccountRepository.existsById(userAccountDto.getUserName());
+        return userAccountRepository.existsUserAccountByUserNameIgnoreCase(userAccountDto.getUserName());
+    }
+
+    @Override
+    public boolean isExistedById(String userName) {
+        if(userName == null ||userName.isBlank() ){
+            return false;
+        }
+        return userAccountRepository.existsById(userName);
     }
 
 
