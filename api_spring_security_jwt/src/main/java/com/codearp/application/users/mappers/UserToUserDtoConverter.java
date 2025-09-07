@@ -14,6 +14,8 @@ public class UserToUserDtoConverter implements Converter<Person, PersonDto> {
         PersonDto dto = new PersonDto();
 
         dto.setId(src.getId());
+        dto.setName(src.getName());
+        dto.setSurname(src.getSurname());
         dto.setFullName(src.getFullName());
         dto.setEmail(src.getEmail());
         dto.setBirthDate(src.getBirthDate());
